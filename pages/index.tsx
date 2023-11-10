@@ -1,31 +1,31 @@
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
-import NewsFeed from '../components/NewsFeed'
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import NewsFeed from '../components/NewsFeed';
 
-const inter = Inter({ subsets: ['latin'] })
+const Home = () => {
+  const [posts, setPosts] = useState([]);
+  const [comments, setComments] = useState([]);
 
-const posts = [
-  {
-    id: 1,
-    user: 'John Doe',
-    image: 'https://source.unsplash.com/random',
-    caption: 'This is a beautiful place!',
-  },
-  {
-    id: 2,
-    user: 'Jane Doe',
-    image: 'https://source.unsplash.com/random',
-    caption: 'Enjoying the sunset.',
-  },
-  // Add more posts as needed
-];
+  useEffect(() => {
+    fetchPosts();
+    fetchComments();
+  }, []);
 
-export default function Home() {
+  const fetchPosts = async () => {
+    const response = await axios.get('/api/posts');
+    setPosts(response.data);
+  };
+
+  const fetchComments = async () => {
+    const response = await axios.get('/api/comments');
+    setComments(response.data);
+  };
+
   return (
-    <main
-      className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}
-    >
-      <NewsFeed posts={posts} />
+    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+      <NewsFeed posts={posts} comments={comments} />
     </main>
-  )
-}
+  );
+};
+
+export default Home;
