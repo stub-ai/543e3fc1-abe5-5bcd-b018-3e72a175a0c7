@@ -5,6 +5,7 @@ type Post = {
   user: string;
   image: string;
   caption: string;
+  likes: number;
 };
 
 let posts: Post[] = [
@@ -13,12 +14,14 @@ let posts: Post[] = [
     user: 'John Doe',
     image: 'https://source.unsplash.com/random',
     caption: 'This is a beautiful place!',
+    likes: 10,
   },
   {
     id: 2,
     user: 'Jane Doe',
     image: 'https://source.unsplash.com/random',
     caption: 'Enjoying the sunset.',
+    likes: 20,
   },
 ];
 

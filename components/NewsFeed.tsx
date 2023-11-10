@@ -1,10 +1,12 @@
 import React from 'react';
+import Card from './Card';
 
 type Post = {
   id: number;
   user: string;
   image: string;
   caption: string;
+  likes: number;
 };
 
 type Comment = {
@@ -20,19 +22,16 @@ type NewsFeedProps = {
 
 const NewsFeed: React.FC<NewsFeedProps> = ({ posts, comments }) => {
   return (
-    <div>
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
       {posts.map((post) => (
-        <div key={post.id}>
-          <h2>{post.user}</h2>
-          <img src={post.image} alt={post.caption} />
-          <p>{post.caption}</p>
-        </div>
-      ))}
-      {comments.map((comment) => (
-        <div key={comment.id}>
-          <h3>{comment.user}</h3>
-          <p>{comment.text}</p>
-        </div>
+        <Card
+          key={post.id}
+          user={post.user}
+          image={post.image}
+          caption={post.caption}
+          likes={post.likes}
+          comments={comments.filter((comment) => comment.id === post.id)}
+        />
       ))}
     </div>
   );
